@@ -5,6 +5,6 @@
     [Email] NVARCHAR(255) NOT NULL, 
     [PasswordHash] NVARCHAR(MAX) NOT NULL, 
     [EmailConfirmed] BIT NOT NULL DEFAULT 0, 
-    [DateJoined] DECIMAL NOT NULL DEFAULT GETDATE(), 
+    [DateJoined] DATETIME2 NOT NULL DEFAULT GETDATE(), 
     [DateModified] DATETIME2 NULL 
 )
