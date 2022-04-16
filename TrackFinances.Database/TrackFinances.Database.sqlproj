@@ -71,8 +71,16 @@
     <Build Include="dbo\StoredProcedures\spUser_Create.sql" />
     <Build Include="dbo\StoredProcedures\spUser_Update.sql" />
     <Build Include="dbo\StoredProcedures\spUser_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\spExpense_Create.sql" />
+    <Build Include="dbo\StoredProcedures\spExpense_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spExpense_GetAllByUserId.sql" />
+    <Build Include="dbo\StoredProcedures\spExpense_Get.sql" />
+    <Build Include="dbo\StoredProcedures\spExpense_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\TrackFinances.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="TrackFinances.Database.refactorlog" />
   </ItemGroup>
 </Project>

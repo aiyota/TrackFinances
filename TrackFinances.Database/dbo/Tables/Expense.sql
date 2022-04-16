@@ -3,7 +3,7 @@
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1), 
     [UserId] UNIQUEIDENTIFIER NOT NULL, 
     [Name] NVARCHAR(100),
-    [Description] NVARCHAR(1000) NOT NULL, 
+    [Description] NVARCHAR(1000) NULL, 
     [Charge] DECIMAL(19, 4) NOT NULL, 
     [ChargeDate] DATETIME2 NOT NULL DEFAULT GETDATE(), 
     [CategoryId] INT NULL, 
