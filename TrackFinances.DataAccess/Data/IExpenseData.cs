@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 using TrackFinances.DataAccess.Models;
 
 namespace TrackFinances.DataAccess.Data;
-
-public interface IUserData
+public interface IExpenseData
 {
-    Task<User> GetAsync(string id);
-    Task<User> GetByEmailAsync(string email);
-    Task<User> GetByUserName(string username);
-    Task<User> CreateAsync(User user);
-    Task<bool> UpdateAsync(User user);
+    Task<Expense> Get(string id);
+    Task<IEnumerable<Expense>> GetByUserIdAsync(string userId);
+    Task<Expense> CreateAsync(Expense expense);
+    Task<bool> UpdateAsync(Expense expense);
     Task<bool> DeleteAsync(string id);
 }

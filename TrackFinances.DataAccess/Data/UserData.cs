@@ -30,16 +30,15 @@ public class UserData : IUserData
     {
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_GetByUserName", new { UserName = username });
     }
-
-    public async Task<bool> UpdateAsync(User user)
-    {
-        return await _database.ExecuteAsync<dynamic>("spUser_Update", user);
-    }
-
     public async Task<User> CreateAsync(User user)
     {
         return await _database
                         .QueryFirstOrDefaultAsync<User, User>("spUser_Create", user);
+    }
+
+    public async Task<bool> UpdateAsync(User user)
+    {
+        return await _database.ExecuteAsync<User>("spUser_Update", user);
     }
 
     public async Task<bool> DeleteAsync(string id)
