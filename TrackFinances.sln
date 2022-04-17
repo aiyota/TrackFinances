@@ -7,12 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A2167683-D53
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TrackFinances.Database", "TrackFinances.Database\TrackFinances.Database.sqlproj", "{5C2BEE52-A1F0-4836-9C2F-3CF7ECC57C8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackFinances.DataAccess", "TrackFinances.DataAccess\TrackFinances.DataAccess.csproj", "{B1900CDF-2FC2-47F1-8E0E-88998F2C3B75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackFinances.DataAccess", "TrackFinances.DataAccess\TrackFinances.DataAccess.csproj", "{B1900CDF-2FC2-47F1-8E0E-88998F2C3B75}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{096F5AD2-D0FF-4E40-A920-F0C8C22EF278}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackFinances.DataAccess.Tests.Integration", "TrackFinances.Tests.Integration\TrackFinances.DataAccess.Tests.Integration.csproj", "{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{15E37FAC-432E-4890-99F8-31FCA421C253}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +34,10 @@ Global
 		{B1900CDF-2FC2-47F1-8E0E-88998F2C3B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1900CDF-2FC2-47F1-8E0E-88998F2C3B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1900CDF-2FC2-47F1-8E0E-88998F2C3B75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +45,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5C2BEE52-A1F0-4836-9C2F-3CF7ECC57C8C} = {A2167683-D53F-4649-BEF1-F764D08FE44C}
 		{B1900CDF-2FC2-47F1-8E0E-88998F2C3B75} = {A2167683-D53F-4649-BEF1-F764D08FE44C}
+		{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1} = {15E37FAC-432E-4890-99F8-31FCA421C253}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB01885F-2F89-444A-AA7B-6833D72647AC}

@@ -25,6 +25,7 @@ BEGIN
 		,[PasswordHash]
 		,[EmailConfirmed]
 		,[DateJoined]
-		,[DateModified] FROM [dbo].[User]
+		,[DateModified] 
+	FROM [dbo].[User]
 	WHERE [Id] = @Id
 END

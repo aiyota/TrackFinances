@@ -30,10 +30,10 @@ public class UserData : IUserData
     {
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_GetByUserName", new { UserName = username });
     }
-    public async Task<User> CreateAsync(User user)
+    public async Task<User> CreateAsync(UserCreate user)
     {
         return await _database
-                        .QueryFirstOrDefaultAsync<User, User>("spUser_Create", user);
+                        .QueryFirstOrDefaultAsync<User, UserCreate>("spUser_Create", user);
     }
 
     public async Task<bool> UpdateAsync(User user)
@@ -43,6 +43,6 @@ public class UserData : IUserData
 
     public async Task<bool> DeleteAsync(string id)
     {
-        return await _database.ExecuteAsync<dynamic>("spExpense_Delete", new { Id = id });
+        return await _database.ExecuteAsync<dynamic>("spUser_Delete", new { Id = id });
     }
 }
