@@ -19,6 +19,14 @@ public class SqlDataAccess : ISqlDataAccess
         _configuration = configuration;
     }
 
+    public async Task<IEnumerable<T>> QueryAsync<T>(string storedProcedure,
+                                                    string connectionId = "Default")
+    {
+        using var connection = await CreateConnectionAsync(connectionId);
+        return await connection.QueryAsync<T>(storedProcedure,
+                                              commandType: CommandType.StoredProcedure);
+    }
+
     public async Task<IEnumerable<T>> QueryAsync<T, U>(string storedProcedure,
                                                        U parameters,
                                                        string connectionId = "Default")
@@ -27,6 +35,14 @@ public class SqlDataAccess : ISqlDataAccess
         return await connection.QueryAsync<T>(storedProcedure,
                                               parameters,
                                               commandType: CommandType.StoredProcedure);
+    }
+
+    public async Task<T> QueryFirstOrDefaultAsync<T>(string storedProcedure,
+                                                     string connectionId = "Default")
+    {
+        using var connection = await CreateConnectionAsync(connectionId);
+        return await connection.QueryFirstOrDefaultAsync<T>(storedProcedure,
+                                                            commandType: CommandType.StoredProcedure);
     }
 
     public async Task<T> QueryFirstOrDefaultAsync<T, U>(string storedProcedure,
