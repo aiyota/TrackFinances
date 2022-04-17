@@ -10,5 +10,14 @@ BEGIN
 	) VALUES (
 		 @Name
 		,@Description
-	)
+	);
+
+	SELECT 
+		 [Id]
+		,[Name]
+		,[Description]
+		,[DateCreated]
+		,[DateModified]
+	FROM [dbo].[Category]
+	WHERE [Id] = @@IDENTITY
 END
