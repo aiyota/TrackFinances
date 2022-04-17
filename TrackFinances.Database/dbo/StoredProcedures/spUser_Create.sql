@@ -3,15 +3,28 @@
 	,@Email nvarchar(255)
 	,@PasswordHash nvarchar(MAX)
 AS
-BEGIN 
+BEGIN
+	DECLARE @Id uniqueidentifier = NEWID()
 	INSERT INTO [dbo].[User]
 	(
-		 [UserName]
+		 [Id]
+		,[UserName]
 		,[Email]
 		,[PasswordHash]
 	) VALUES (
-		 @UserName
+		 @Id
+		,@UserName
 		,@Email
 		,@PasswordHash
-	)
+	);
+
+	SELECT 
+		 [Id]
+		,[UserName]
+		,[Email]
+		,[PasswordHash]
+		,[EmailConfirmed]
+		,[DateJoined]
+		,[DateModified] FROM [dbo].[User]
+	WHERE [Id] = @Id
 END
