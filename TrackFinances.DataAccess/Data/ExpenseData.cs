@@ -18,26 +18,31 @@ public class ExpenseData : IExpenseData
 
     public async Task<Expense> Get(string id)
     {
-        return await _database.QueryFirstOrDefaultAsync<Expense>("spExpense_Get", id);
+        return await _database
+                        .QueryFirstOrDefaultAsync<Expense>("spExpense_Get", id);
     }
 
     public async Task<IEnumerable<Expense>> GetByUserIdAsync(string userId)
     {
-        return await _database.QueryAsync<Expense, dynamic>("spExpense_GetAllByUserId", new { UserId = userId });
+        return await _database
+                        .QueryAsync<Expense, dynamic>("spExpense_GetAllByUserId", new { UserId = userId });
     }
 
     public async Task<Expense> CreateAsync(Expense expense)
     {
-        return await _database.QueryFirstOrDefaultAsync<Expense, Expense>("spExpense_Create", expense);
+        return await _database
+                        .QueryFirstOrDefaultAsync<Expense, Expense>("spExpense_Create", expense);
     }
 
     public async Task<bool> UpdateAsync(Expense expense)
     {
-        return await _database.ExecuteAsync("spExpense_Update", expense);
+        return await _database
+                        .ExecuteAsync("spExpense_Update", expense);
     }
 
     public async Task<bool> DeleteAsync(string id)
     {
-        return await _database.ExecuteAsync<dynamic>("spExpense_Delete", new { Id = id });
+        return await _database
+                        .ExecuteAsync<dynamic>("spExpense_Delete", new { Id = id });
     }
 }
