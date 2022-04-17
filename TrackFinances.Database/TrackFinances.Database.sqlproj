@@ -76,6 +76,10 @@
     <Build Include="dbo\StoredProcedures\spExpense_GetAllByUserId.sql" />
     <Build Include="dbo\StoredProcedures\spExpense_Get.sql" />
     <Build Include="dbo\StoredProcedures\spExpense_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\spCategory_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\spCategory_Create.sql" />
+    <Build Include="dbo\StoredProcedures\spCategory_Update.sql" />
+    <Build Include="dbo\StoredProcedures\spCategory_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishProfiles\TrackFinances.Database.publish.xml" />

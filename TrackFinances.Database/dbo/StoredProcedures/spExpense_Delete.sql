@@ -3,5 +3,5 @@
 AS
 BEGIN
 	DELETE FROM [dbo].[Expense]
-	WHERE [dbo].[Expense].[Id] = @Id
+	WHERE [Id] = @Id
 END
