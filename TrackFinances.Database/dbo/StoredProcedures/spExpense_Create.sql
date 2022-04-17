@@ -29,4 +29,19 @@ BEGIN
 		,ISNULL(@IsDirectCharge, 0)
 		,ISNULL(@IsCleared, 0)
 	);
+
+	SELECT 
+		 [Id]
+		,[UserId]
+		,[Name]
+		,[Description]
+		,[Charge]
+		,[ChargeDate]
+		,[CategoryId]
+		,[IsDirectCharge]
+		,[IsCleared]
+		,[DateCreated]
+		,[DateModified]
+	FROM [dbo].[Expense]
+	WHERE [Id] = @@IDENTITY;
 END
