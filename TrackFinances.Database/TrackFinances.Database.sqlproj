@@ -82,9 +82,9 @@
     <Build Include="dbo\StoredProcedures\spCategory_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PublishProfiles\TrackFinances.Database.publish.xml" />
+    <RefactorLog Include="TrackFinances.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="TrackFinances.Database.refactorlog" />
+    <None Include="PublishProfiles\TrackFinances.Database.publish.xml" />
   </ItemGroup>
 </Project>

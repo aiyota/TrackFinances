@@ -18,13 +18,9 @@ public class UserDataAccessTests : IAsyncLifetime
     private readonly IUserData _userData;
     private readonly List<string> _createdUserIds = new();
 
-    public UserDataAccessTests()
+    public UserDataAccessTests(IUserData userData)
     {
-        var config = new ConfigurationBuilder()
-                            .AddJsonFile("appsettings.json")
-                            .Build();
-        var sqlDataAccess = new SqlDataAccess(config);
-        _userData = new UserData(sqlDataAccess);
+        _userData = userData;
     }
 
     [Fact]
@@ -47,9 +43,9 @@ public class UserDataAccessTests : IAsyncLifetime
             await _userData.DeleteAsync(id);
     }
 
-    private UserCreate CreateUser(string userName = "TestUser",
-                            string email = "test@email.com",
-                            string passwordHash = "$2a$10$Yga0pe1YaYoJfX.dWp/JfuDozZvUOEwzRjITwUBRfux80jyE.f3E6")
+    private static UserCreate CreateUser(string userName = "TestUser",
+                                         string email = "test@email.com",
+                                         string passwordHash = "$2a$10$Yga0pe1YaYoJfX.dWp/JfuDozZvUOEwzRjITwUBRfux80jyE.f3E6")
     {
         return new UserCreate
         {
