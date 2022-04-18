@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackFinances.DataAccess.Tests.Integration", "TrackFinances.Tests.Integration\TrackFinances.DataAccess.Tests.Integration.csproj", "{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackFinances.DataAccess.Tests.Integration", "TrackFinances.DataAccess.Tests.Integration\TrackFinances.DataAccess.Tests.Integration.csproj", "{CAB1C6FD-EFDD-4DF1-BFC8-97E847EADCC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{15E37FAC-432E-4890-99F8-31FCA421C253}"
 EndProject
