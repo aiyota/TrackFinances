@@ -36,9 +36,9 @@ public class UserData : IUserData
                         .QueryFirstOrDefaultAsync<User, UserCreate>("spUser_Create", user);
     }
 
-    public async Task<bool> UpdateAsync(User user)
+    public async Task<bool> UpdateAsync(UserUpdate user)
     {
-        return await _database.ExecuteAsync<User>("spUser_Update", user);
+        return await _database.ExecuteAsync("spUser_Update", user);
     }
 
     public async Task<bool> DeleteAsync(string id)

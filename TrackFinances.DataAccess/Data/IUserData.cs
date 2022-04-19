@@ -13,6 +13,6 @@ public interface IUserData
     Task<User> GetByEmailAsync(string email);
     Task<User> GetByUserName(string username);
     Task<User> CreateAsync(UserCreate user);
-    Task<bool> UpdateAsync(User user);
+    Task<bool> UpdateAsync(UserUpdate user);
     Task<bool> DeleteAsync(string id);
 }
