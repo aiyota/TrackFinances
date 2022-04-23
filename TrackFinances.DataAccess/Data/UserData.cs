@@ -30,6 +30,7 @@ public class UserData : IUserData
     {
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_GetByUserName", new { UserName = username });
     }
+
     public async Task<User> CreateAsync(UserCreate user)
     {
         return await _database

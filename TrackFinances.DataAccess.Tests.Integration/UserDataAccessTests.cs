@@ -1,14 +1,9 @@
 ﻿using FluentAssertions;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TrackFinances.DataAccess.Data;
-using TrackFinances.DataAccess.DbAccess;
 using TrackFinances.DataAccess.Models;
 using Xunit;
 
@@ -70,9 +65,9 @@ public class UserDataAccessTests : IAsyncLifetime
 
         var userUpdateModel = MakeUpdateUserModel(user.Id.ToString(), "UpdatedUser", "updated-test@test.com", "$faux-hash");
 
-        var result = await _userData.UpdateAsync(userUpdateModel);
+        var isUpdated = await _userData.UpdateAsync(userUpdateModel);
 
-        result.Should().Be(true);
+        isUpdated.Should().Be(true);
     }
 
     [Fact]
@@ -90,6 +85,81 @@ public class UserDataAccessTests : IAsyncLifetime
                 .Invoking(async x => await x.UpdateAsync(userUpdateModel))
                 .Should()
                 .ThrowAsync<SqlException>();
+    }
+
+    [Fact]
+    public async Task GetUser_ReturnsUser_WhenUserExists()
+    {
+        var userCreateModel = MakeCreateUserModel("TestUser", "test@test.com", "$faux-hash");
+        var createdUser = await _userData.CreateAsync(userCreateModel);
+        _createdUserIds.Add(createdUser.Id.ToString());
+
+        var retrievedUser = await _userData.GetAsync(createdUser.Id.ToString());
+        retrievedUser.Should().BeEquivalentTo(createdUser);
+    }
+
+    [Fact]
+    public async Task GetUser_ReturnsNull_WhenUserDoesNotExists()
+    {
+
+        var retrievedUser = await _userData.GetAsync(Guid.Empty.ToString());
+        retrievedUser.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetUserByEmail_ReturnsUser_WhenUserExists()
+    {
+        var userCreateModel = MakeCreateUserModel("TestUser", "themaintestemail@test.com", "$faux-hash");
+        var createdUser = await _userData.CreateAsync(userCreateModel);
+        _createdUserIds.Add(createdUser.Id.ToString());
+
+        var retrievedUser = await _userData.GetByEmailAsync("themaintestemail@test.com");
+        retrievedUser.Should().BeEquivalentTo(createdUser);
+    }
+
+    [Fact]
+    public async Task GetUserByEmail_ReturnsNull_WhenUserDoesNotExists()
+    {
+
+        var retrievedUser = await _userData.GetByEmailAsync("moretesting@test.com");
+        retrievedUser.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task GetUserByUserName_ReturnsUser_WhenUserExists()
+    {
+        var userCreateModel = MakeCreateUserModel("TestUser", "themaintestemail@test.com", "$faux-hash");
+        var createdUser = await _userData.CreateAsync(userCreateModel);
+        _createdUserIds.Add(createdUser.Id.ToString());
+
+        var retrievedUser = await _userData.GetByUserNameAsync("TestUser");
+        retrievedUser.Should().BeEquivalentTo(createdUser);
+    }
+
+    [Fact]
+    public async Task GetUserByUserName_ReturnsNull_WhenUserDoesNotExists()
+    {
+
+        var retrievedUser = await _userData.GetByUserNameAsync("TestUser9999");
+        retrievedUser.Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Delete_ReturnsTrue_WhenUserExists()
+    {
+        var userCreateModel = MakeCreateUserModel("TestUser", "themaintestemail@test.com", "$faux-hash");
+        var createdUser = await _userData.CreateAsync(userCreateModel);
+        _createdUserIds.Add(createdUser.Id.ToString());
+
+        var isDeleted = await _userData.DeleteAsync(createdUser.Id.ToString());
+        isDeleted.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task Delete_ReturnsFalse_WhenUserDoestNotExist()
+    {
+        var isDeleted = await _userData.DeleteAsync(Guid.Empty.ToString());
+        isDeleted.Should().BeFalse();
     }
 
     private static UserCreate MakeCreateUserModel(string? userName,
