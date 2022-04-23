@@ -16,17 +16,17 @@ public class UserData : IUserData
         _database = database;
     }
 
-    public async Task<User> GetAsync(string id)
+    public async Task<User?> GetAsync(string id)
     {
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_Get", new { Id = id });
     }
 
-    public async Task<User> GetByEmailAsync(string email)
+    public async Task<User?> GetByEmailAsync(string email)
     {
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_GetByEmail", new { Email = email });
     }
 
-    public async Task<User> GetByUserName(string username)
+    public async Task<User?> GetByUserName(string username)
     {
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_GetByUserName", new { UserName = username });
     }
