@@ -26,7 +26,7 @@ public class UserData : IUserData
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_GetByEmail", new { Email = email });
     }
 
-    public async Task<User?> GetByUserName(string username)
+    public async Task<User?> GetByUserNameAsync(string username)
     {
         return await _database.QueryFirstOrDefaultAsync<User, dynamic>("spUser_GetByUserName", new { UserName = username });
     }

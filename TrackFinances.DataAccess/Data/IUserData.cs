@@ -11,7 +11,7 @@ public interface IUserData
 {
     Task<User?> GetAsync(string id);
     Task<User?> GetByEmailAsync(string email);
-    Task<User?> GetByUserName(string username);
+    Task<User?> GetByUserNameAsync(string username);
     Task<User> CreateAsync(UserCreate user);
     Task<bool> UpdateAsync(UserUpdate user);
     Task<bool> DeleteAsync(string id);
