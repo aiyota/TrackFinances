@@ -99,7 +99,7 @@ public class UserDataAccessTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task GetUser_ReturnsNull_WhenUserDoesNotExists()
+    public async Task GetUser_ReturnsNull_WhenUserDoesNotExist()
     {
 
         var retrievedUser = await _userData.GetAsync(Guid.Empty.ToString());
@@ -118,7 +118,7 @@ public class UserDataAccessTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task GetUserByEmail_ReturnsNull_WhenUserDoesNotExists()
+    public async Task GetUserByEmail_ReturnsNull_WhenUserDoesNotExist()
     {
 
         var retrievedUser = await _userData.GetByEmailAsync("moretesting@test.com");
@@ -137,7 +137,7 @@ public class UserDataAccessTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task GetUserByUserName_ReturnsNull_WhenUserDoesNotExists()
+    public async Task GetUserByUserName_ReturnsNull_WhenUserDoesNotExist()
     {
 
         var retrievedUser = await _userData.GetByUserNameAsync("TestUser9999");
@@ -145,7 +145,7 @@ public class UserDataAccessTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task Delete_ReturnsTrue_WhenUserExists()
+    public async Task DeleteUser_ReturnsTrue_WhenUserExists()
     {
         var userCreateModel = MakeCreateUserModel("TestUser", "themaintestemail@test.com", "$faux-hash");
         var createdUser = await _userData.CreateAsync(userCreateModel);
@@ -156,7 +156,7 @@ public class UserDataAccessTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task Delete_ReturnsFalse_WhenUserDoestNotExist()
+    public async Task DeleteUser_ReturnsFalse_WhenUserDoestNotExist()
     {
         var isDeleted = await _userData.DeleteAsync(Guid.Empty.ToString());
         isDeleted.Should().BeFalse();

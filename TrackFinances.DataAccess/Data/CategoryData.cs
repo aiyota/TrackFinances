@@ -22,13 +22,13 @@ public class CategoryData : ICategoryData
                         .QueryAsync<Category>("spCategory_GetAll");
     }
 
-    public async Task<Category> CreateAsync(Category category)
+    public async Task<Category> CreateAsync(CategoryCreate category)
     {
         return await _database
-                        .QueryFirstOrDefaultAsync<Category, Category>("spCategory_Create", category);
+                        .QueryFirstOrDefaultAsync<Category, CategoryCreate>("spCategory_Create", category);
     }
 
-    public async Task<bool> UpdateAsync(Category category)
+    public async Task<bool> UpdateAsync(CategoryUpdate category)
     {
         return await _database
                         .ExecuteAsync("spCategory_Update", category);

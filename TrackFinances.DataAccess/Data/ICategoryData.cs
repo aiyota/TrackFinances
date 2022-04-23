@@ -9,7 +9,7 @@ namespace TrackFinances.DataAccess.Data;
 public interface ICategoryData
 {
     Task<IEnumerable<Category>> GetAllAsync();
-    Task<Category> CreateAsync(Category category);
-    Task<bool> UpdateAsync(Category category);
+    Task<Category> CreateAsync(CategoryCreate category);
+    Task<bool> UpdateAsync(CategoryUpdate category);
     Task<bool> DeleteAsync(int id);
 }
