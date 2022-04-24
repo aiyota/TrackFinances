@@ -21,5 +21,6 @@ namespace TrackFinances.DataAccess.Tests.Integration;
         services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
         services.AddSingleton<IUserData, UserData>();
         services.AddSingleton<ICategoryData, CategoryData>();
+        services.AddSingleton<IExpenseData, ExpenseData>();
     }
 }

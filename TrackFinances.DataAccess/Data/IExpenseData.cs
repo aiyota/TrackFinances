@@ -8,9 +8,9 @@ using TrackFinances.DataAccess.Models;
 namespace TrackFinances.DataAccess.Data;
 public interface IExpenseData
 {
-    Task<Expense> Get(string id);
+    Task<Expense?> Get(string id);
     Task<IEnumerable<Expense>> GetByUserIdAsync(string userId);
-    Task<Expense> CreateAsync(Expense expense);
-    Task<bool> UpdateAsync(Expense expense);
-    Task<bool> DeleteAsync(string id);
+    Task<Expense> CreateAsync(ExpenseCreate expense);
+    Task<bool> UpdateAsync(ExpenseUpdate expense);
+    Task<bool> DeleteAsync(int id);
 }
