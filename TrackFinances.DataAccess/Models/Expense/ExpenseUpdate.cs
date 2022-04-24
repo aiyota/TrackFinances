@@ -16,5 +16,4 @@ public class ExpenseUpdate
     public int? CategoryId { get; set; }
     public bool? IsDirectCharge { get; set; }
     public bool? IsCleared { get; set; }
-    public DateTime? DateCreated { get; set; }
 }

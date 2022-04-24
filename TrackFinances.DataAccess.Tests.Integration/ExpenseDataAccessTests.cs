@@ -53,10 +53,9 @@ public class ExpenseDataAccessTests : IAsyncLifetime
     }
 
     [Fact]
-    public async Task CreateExpense_ThrowSqlException_WhenNameIsNull()
+    public async Task CreateExpense_ThrowsSqlException_WhenNameIsNull()
     {
         var user = await CreateUser();
-
         var category = await CreateCategory();
 
         var expenseCreateModel = new ExpenseCreate
@@ -71,6 +70,114 @@ public class ExpenseDataAccessTests : IAsyncLifetime
                     x.CreateAsync(expenseCreateModel))
                 .Should()
                 .ThrowAsync<SqlException>();
+    }
+
+    [Fact]
+    public async Task GetExpense_ReturnsExpense_WhenExpenseExists()
+    {
+        var user = await CreateUser();
+        var category = await CreateCategory();
+        var expenseCreateModel = new ExpenseCreate
+        {
+            UserId = user.Id,
+            Name = "Test Expense2",
+            Charge = 19.22m,
+            CategoryId = category.Id,
+        };
+
+        var expense = await _expenseData.CreateAsync(expenseCreateModel);
+        _createdExpenseIds.Add(expense.Id);
+
+        var retrievedExpense = await _expenseData.Get(expense.Id);
+
+        retrievedExpense.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task GetExpense_ReturnsNull_WhenExpenseDoesNotExist()
+    {
+        var retrievedExpense = await _expenseData.Get(int.MinValue);
+        retrievedExpense.Should().BeNull(); 
+    }
+
+    [Fact]
+    public async Task GetExpenseByUser_ReturnsIEnumerableWithExpenses_IfUserExists()
+    {
+        var user = await CreateUser();
+        var category = await CreateCategory();
+        var expenseCreateModel = new ExpenseCreate
+        {
+            UserId = user.Id,
+            Name = "Test Expense3",
+            Charge = 19.22m,
+            CategoryId = category.Id,
+        };
+        var expense = await _expenseData.CreateAsync(expenseCreateModel);
+        _createdExpenseIds.Add(expense.Id);
+
+        var retrievedExpenses = await _expenseData.GetByUserIdAsync(user.Id.ToString());
+        retrievedExpenses.Count().Should().Be(1);
+    }
+
+    [Fact]
+    public async Task GetExpenseByUser_ReturnsIEnumerableWithoutExpenses_IfUserDoesNotExist()
+    {
+        var retrievedExpenses = await _expenseData.GetByUserIdAsync(Guid.Empty.ToString());
+        retrievedExpenses.Count().Should().Be(0);
+    }
+
+    [Fact]
+    public async Task UpdateExpense_ReturnsTrue_IfDataIsCorrect()
+    {
+        var user = await CreateUser();
+        var category = await CreateCategory();
+        var expenseCreateModel = new ExpenseCreate
+        {
+            UserId = user.Id,
+            Name = "Test Expense4",
+            Charge = 19.22m,
+            CategoryId = category.Id,
+        };
+        var expense = await _expenseData.CreateAsync(expenseCreateModel);
+        _createdExpenseIds.Add(expense.Id);
+
+        var updateModel = new ExpenseUpdate { Id = expense.Id, Name = "UpdatedExpense4", Charge = 33.22m };
+        var isUpdated = await _expenseData.UpdateAsync(updateModel);
+        isUpdated.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task UpdateExpense_ReturnsFalse_IfExpenseDoesNotExist()
+    {
+        var updateModel = new ExpenseUpdate { Id = int.MinValue, Name = "UpdatedExpense4", Charge = 33.22m };
+        var isUpdated = await _expenseData.UpdateAsync(updateModel);
+        isUpdated.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task DeleteExpense_ReturnsTrue_WhenExpenseExists()
+    {
+        var user = await CreateUser();
+        var category = await CreateCategory();
+        var expenseCreateModel = new ExpenseCreate
+        {
+            UserId = user.Id,
+            Name = "Test Expense5",
+            Charge = 19.22m,
+            CategoryId = category.Id,
+        };
+        var expense = await _expenseData.CreateAsync(expenseCreateModel);
+        _createdExpenseIds.Add(expense.Id);
+
+        var isDeleted = await _expenseData.DeleteAsync(expense.Id);
+        isDeleted.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task DeleteExpense_ReturnsFalse_WhenExpenseDoesNotExist()
+    {
+        var isDeleted = await _expenseData.DeleteAsync(int.MinValue);
+        isDeleted.Should().BeFalse();
     }
 
     private async Task<Category> CreateCategory()

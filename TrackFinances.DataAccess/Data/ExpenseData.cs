@@ -16,10 +16,10 @@ public class ExpenseData : IExpenseData
         _database = database;
     }
 
-    public async Task<Expense?> Get(string id)
+    public async Task<Expense?> Get(int id)
     {
         return await _database
-                        .QueryFirstOrDefaultAsync<Expense>("spExpense_Get", id);
+                        .QueryFirstOrDefaultAsync<Expense, dynamic>("spExpense_Get", new { Id = id });
     }
 
     public async Task<IEnumerable<Expense>> GetByUserIdAsync(string userId)
