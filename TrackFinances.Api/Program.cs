@@ -1,3 +1,5 @@
+using TrackFinances.Api.Endpoints;
+using TrackFinances.Api.Services;
 using TrackFinances.DataAccess.Data;
 using TrackFinances.DataAccess.DbAccess;
 
@@ -12,6 +14,8 @@ builder.Services.AddSingleton<IUserData, UserData>();
 builder.Services.AddSingleton<ICategoryData, CategoryData>();
 builder.Services.AddSingleton<IExpenseData, ExpenseData>();
 
+builder.Services.AddSingleton<IUserService, UserService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -21,5 +25,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseUserEndpoints();
 
 app.Run();

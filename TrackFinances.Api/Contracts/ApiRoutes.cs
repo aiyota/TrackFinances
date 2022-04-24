@@ -11,8 +11,7 @@ public static class ApiRoutes
         public const string Get = Base + "/user/{userId}";
         public const string Update = Base + "/user/{userId}";
         public const string Delete = Base + "/user/{userId}";
-        public const string GetByEmail = Base + "/user/{email}";
-        public const string GetByUserName = Base + "/user/{userName}";
+        public const string GetBy = Base + "/user";
         public const string Create = Base + "/user";
     }
 }
