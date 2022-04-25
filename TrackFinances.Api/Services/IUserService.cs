@@ -9,6 +9,7 @@ public interface IUserService
     Task<User?> GetByUserNameAsync(string username);
     Task<User?> CreateAsync(UserCreate user, string password);
     Task<bool> UpdateAsync(UserUpdate user);
+    Task<bool> UpdateAsync(UserUpdate user, string password);
     Task<bool> DeleteAsync(string id);
     Task<bool> Login(string userId, string password);
 }

@@ -23,7 +23,6 @@ public class UserService : IUserService
     {
         try
         {
-            // TODO: Implement password hashing
             user.PasswordHash = _hashingService.HashPassword(password);
             return await _userData.CreateAsync(user);
         }
