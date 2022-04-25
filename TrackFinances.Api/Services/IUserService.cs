@@ -7,10 +7,10 @@ namespace TrackFinances.Api.Services;
 
 public interface IUserService
 {
-    Task<UserResponse?> GetAsync(string id);
-    Task<UserResponse?> GetByEmailAsync(string email);
-    Task<UserResponse?> GetByUserNameAsync(string username);
-    Task<UserResponse?> CreateAsync(UserCreateRequest user);
-    Task<bool> UpdateAsync(UserUpdateRequest user);
+    Task<User?> GetAsync(string id);
+    Task<User?> GetByEmailAsync(string email);
+    Task<User?> GetByUserNameAsync(string username);
+    Task<User?> CreateAsync(UserCreate user, string password);
+    Task<bool> UpdateAsync(UserUpdate user);
     Task<bool> DeleteAsync(string id);
 }

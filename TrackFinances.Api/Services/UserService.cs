@@ -11,28 +11,21 @@ public class UserService : IUserService
 {
     private readonly IUserData _userData;
     private readonly ILogger<UserService> _logger;
-    private readonly IMapper _mapper;
 
     public UserService(IUserData userData,
-                       ILogger<UserService> logger,
-                       IMapper mapper)
+                       ILogger<UserService> logger)
     {
         _userData = userData;
         _logger = logger;
-        _mapper = mapper;
     }
 
-    public async Task<UserResponse?> CreateAsync(UserCreateRequest user)
+    public async Task<User?> CreateAsync(UserCreate user, string password)
     {
         try
         {
-            var mappedUser = _mapper.Map<UserCreate>(user);
-
-            // TODO: implement pw hashing
-            mappedUser.PasswordHash = FakeHashPassword(user.Password);
-
-            var retrievedUser = await _userData.CreateAsync(mappedUser);
-            return _mapper.Map<UserResponse>(retrievedUser);
+            // TODO: Implement password hashing
+            user.PasswordHash = HashPassword(password);
+            return await _userData.CreateAsync(user);
         }
         catch (Exception ex)
         {
@@ -53,12 +46,11 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<UserResponse?> GetAsync(string id)
+    public async Task<User?> GetAsync(string id)
     {
         try
         {
-            var retrievedUser = await _userData.GetAsync(id);
-            return _mapper.Map<UserResponse>(retrievedUser);
+            return await _userData.GetAsync(id);
         }
         catch (Exception ex)
         {
@@ -67,12 +59,11 @@ public class UserService : IUserService
         }
     } 
 
-    public async Task<UserResponse?> GetByEmailAsync(string email)
+    public async Task<User?> GetByEmailAsync(string email)
     {
         try
         {
-            var retrievedUser = await _userData.GetByEmailAsync(email);
-            return _mapper.Map<UserResponse>(retrievedUser);
+            return await _userData.GetByEmailAsync(email);
         }
         catch (Exception ex)
         {
@@ -81,12 +72,11 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<UserResponse?> GetByUserNameAsync(string username)
+    public async Task<User?> GetByUserNameAsync(string username)
     {
         try
         {
-            var retrivedUser = await _userData.GetByUserNameAsync(username);
-            return _mapper.Map<UserResponse>(retrivedUser);
+            return await _userData.GetByUserNameAsync(username);
         }
         catch (Exception ex)
         {
@@ -95,17 +85,11 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<bool> UpdateAsync(UserUpdateRequest user)
+    public async Task<bool> UpdateAsync(UserUpdate user)
     {
         try
         {
-            var mappedUser = _mapper.Map<UserUpdate>(user);
-
-            // TODO: implement pw hashing
-            if (!string.IsNullOrEmpty(user.Password))
-                mappedUser.PasswordHash = FakeHashPassword(user.Password);
-
-            return await _userData.UpdateAsync(mappedUser);  
+            return await _userData.UpdateAsync(user);  
         } 
         catch (Exception ex)
         {
@@ -114,7 +98,21 @@ public class UserService : IUserService
         }
     }
 
-    private string FakeHashPassword(string password)
+    public async Task<bool> UpdateAsync(UserUpdate user, string password)
+    {
+        try
+        {
+            user.PasswordHash = HashPassword(password);
+            return await _userData.UpdateAsync(user);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return false;
+        }
+    }
+
+    private static string HashPassword(string password)
     {
         return "fake-hash-cjo/PnNJczwtQzMiIy9kQGFR";
     }

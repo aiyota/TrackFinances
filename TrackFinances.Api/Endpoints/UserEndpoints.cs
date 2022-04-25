@@ -1,9 +1,11 @@
-﻿using TrackFinances.Api.Contracts;
+﻿using AutoMapper;
+using TrackFinances.Api.Contracts;
 using TrackFinances.Api.Contracts.V1;
 using TrackFinances.Api.Contracts.V1.Requests;
 using TrackFinances.Api.Contracts.V1.Responses;
 using TrackFinances.Api.Services;
 using TrackFinances.DataAccess.Data;
+using TrackFinances.DataAccess.Models;
 
 namespace TrackFinances.Api.Endpoints;
 
@@ -16,9 +18,12 @@ public static class UserEndpoints
         app.MapPost(ApiRoutes.User.Create, Create);
     }
 
-    private async static Task<IResult> Create(UserCreateRequest userCreateRequest, IUserService userService)
+    private async static Task<IResult> Create(UserCreateRequest userCreateRequest,
+                                              IUserService userService,
+                                              IMapper mapper)
     {
-        var createdUser = await userService.CreateAsync(userCreateRequest);
+        var mappedUser = mapper.Map<UserCreate>(userCreateRequest);
+        var createdUser = await userService.CreateAsync(mappedUser, userCreateRequest.Password);
         if (createdUser is null)
             return Results.BadRequest();
 
