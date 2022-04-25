@@ -20,6 +20,7 @@ public static class UserEndpoints
 
     private async static Task<IResult> Create(UserCreateRequest userCreateRequest,
                                               IUserService userService,
+                                              HttpContext context,
                                               IMapper mapper)
     {
         var mappedUser = mapper.Map<UserCreate>(userCreateRequest);
@@ -27,7 +28,9 @@ public static class UserEndpoints
         if (createdUser is null)
             return Results.BadRequest();
 
-        var uri = ApiRoutes.User.Create + "/" + createdUser.Id;
+        var uri = ApiRoutes.CreateUri(context,
+                                      ApiRoutes.User.Create,
+                                      createdUser.Id.ToString());
         return Results.Created(uri, createdUser);
     }
 
