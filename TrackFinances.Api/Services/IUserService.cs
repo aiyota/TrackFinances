@@ -1,7 +1,4 @@
-﻿using TrackFinances.Api.Contracts.V1;
-using TrackFinances.Api.Contracts.V1.Requests;
-using TrackFinances.Api.Contracts.V1.Responses;
-using TrackFinances.DataAccess.Models;
+﻿using TrackFinances.DataAccess.Models;
 
 namespace TrackFinances.Api.Services;
 
@@ -13,4 +10,5 @@ public interface IUserService
     Task<User?> CreateAsync(UserCreate user, string password);
     Task<bool> UpdateAsync(UserUpdate user);
     Task<bool> DeleteAsync(string id);
+    Task<bool> Login(string userId, string password);
 }

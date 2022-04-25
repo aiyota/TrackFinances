@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using TrackFinances.Api.Contracts.V1;
 using TrackFinances.Api.Contracts.V1.Requests;
 using TrackFinances.Api.Contracts.V1.Responses;
 using TrackFinances.DataAccess.Models;

@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using TrackFinances.Api.Contracts.V1;
-using TrackFinances.Api.Contracts.V1.Requests;
-using TrackFinances.Api.Contracts.V1.Responses;
+﻿using Isopoh.Cryptography.Argon2;
 using TrackFinances.DataAccess.Data;
 using TrackFinances.DataAccess.Models;
 
@@ -10,12 +7,15 @@ namespace TrackFinances.Api.Services;
 public class UserService : IUserService
 {
     private readonly IUserData _userData;
+    private readonly IHashingService _hashingService;
     private readonly ILogger<UserService> _logger;
 
     public UserService(IUserData userData,
+                       IHashingService hashingService,
                        ILogger<UserService> logger)
     {
         _userData = userData;
+        _hashingService = hashingService;
         _logger = logger;
     }
 
@@ -24,7 +24,7 @@ public class UserService : IUserService
         try
         {
             // TODO: Implement password hashing
-            user.PasswordHash = HashPassword(password);
+            user.PasswordHash = _hashingService.HashPassword(password);
             return await _userData.CreateAsync(user);
         }
         catch (Exception ex)
@@ -102,7 +102,7 @@ public class UserService : IUserService
     {
         try
         {
-            user.PasswordHash = HashPassword(password);
+            user.PasswordHash = _hashingService.HashPassword(password);
             return await _userData.UpdateAsync(user);
         }
         catch (Exception ex)
@@ -112,8 +112,12 @@ public class UserService : IUserService
         }
     }
 
-    private static string HashPassword(string password)
+    public async Task<bool> Login(string userName, string password)
     {
-        return "fake-hash-cjo/PnNJczwtQzMiIy9kQGFR";
+        var user = await GetByUserNameAsync(userName);
+        if (user is null)
+            return false;
+        
+        return _hashingService.VerifyPassword(user.PasswordHash, password);
     }
 }

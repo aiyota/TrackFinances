@@ -13,6 +13,7 @@ public static class ApiRoutes
         public const string Delete = Base + "/user/{userId}";
         public const string GetBy = Base + "/user";
         public const string Create = Base + "/user";
+        public const string Login = Base + "/user/login";
     }
 
     public static string CreateUri(HttpContext context,

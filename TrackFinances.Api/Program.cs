@@ -14,6 +14,7 @@ builder.Services.AddSingleton<IUserData, UserData>();
 builder.Services.AddSingleton<ICategoryData, CategoryData>();
 builder.Services.AddSingleton<IExpenseData, ExpenseData>();
 
+builder.Services.AddSingleton<IHashingService, HashingService>();
 builder.Services.AddSingleton<IUserService, UserService>();
 
 var app = builder.Build();
