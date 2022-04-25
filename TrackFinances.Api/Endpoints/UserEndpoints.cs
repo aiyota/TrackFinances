@@ -1,6 +1,7 @@
 ﻿using TrackFinances.Api.Contracts;
 using TrackFinances.Api.Contracts.V1;
 using TrackFinances.Api.Contracts.V1.Requests;
+using TrackFinances.Api.Contracts.V1.Responses;
 using TrackFinances.Api.Services;
 using TrackFinances.DataAccess.Data;
 
@@ -28,9 +29,7 @@ public static class UserEndpoints
     private async static Task<IResult> Get(string userId, IUserService userService)
     {
         var user = await userService.GetAsync(userId);
-        return (user is not null) 
-                ? Results.Ok(user)
-                : Results.NotFound();
+        return MakeNullableResult(user);
     }
 
     private async static Task<IResult> GetBy(string? email, string? userName, IUserService userService)
@@ -43,19 +42,21 @@ public static class UserEndpoints
         if (email is not null)
         {
             var user = await userService.GetByEmailAsync(email);
-            return (user is not null)
-                    ? Results.Ok(user)
-                    : Results.NotFound();
+            return MakeNullableResult(user);
         }
 
         if (userName is not null)
         {
             var user = await userService.GetByUserNameAsync(userName);
-            return (user is not null)
-                    ? Results.Ok(user)
-                    : Results.NotFound();
+            return MakeNullableResult(user);
         }
 
         return Results.BadRequest();
     }
+
+    private static IResult MakeNullableResult<T>(T? input = null)
+    where T : class =>
+        (input is not null)
+            ? Results.Ok(input)
+            : Results.NotFound();
 }
