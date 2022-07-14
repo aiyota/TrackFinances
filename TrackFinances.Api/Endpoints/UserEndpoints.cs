@@ -72,12 +72,16 @@ public static class UserEndpoints
     }
 
     private async static Task<IResult> Login(UserLoginRequest request,
-                                             IUserService userService)
+                                             IUserService userService,
+                                             IAuthService authService)
     {
         var loginSuccess = await userService.Login(request.UserName, request.Password);
-        return (loginSuccess) 
-                ? Results.Ok() 
-                : Results.Unauthorized();
+        if (!loginSuccess)
+            return Results.Unauthorized();
+
+        var user = await userService.GetByUserNameAsync(request.UserName);
+        var token = authService.CreateToken(user!.Id);
+        return Results.Ok(token);
     }
 
     private static IResult MakeNullableResult<T>(T? input = null)
