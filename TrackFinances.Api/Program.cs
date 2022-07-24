@@ -13,13 +13,15 @@ builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+        options.TokenValidationParameters = new()
         {
+            ValidateIssuer = true,
+            ValidateAudience = true,
             ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration.GetValue<string>("Authentication:Issuer"),
+            ValidAudience = builder.Configuration.GetValue<string>("Authentication:Audience"),
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                                      .GetBytes(builder.Configuration.GetValue<string>("Authentication:SecretKey"))),
-            ValidateIssuer = false,
-            ValidateAudience = false
         };
     });
 builder.Services.AddSwaggerGen();
