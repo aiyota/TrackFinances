@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using TrackFinances.Api.Contracts;
 using TrackFinances.Api.Contracts.V1.Requests;
 using TrackFinances.Api.Contracts.V1.Responses;
@@ -71,6 +72,7 @@ public static class UserEndpoints
         return Results.BadRequest();
     }
 
+    [AllowAnonymous]
     private async static Task<IResult> Login(UserLoginRequest request,
                                              IUserService userService,
                                              IAuthService authService)
