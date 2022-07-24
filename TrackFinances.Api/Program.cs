@@ -7,7 +7,7 @@ using TrackFinances.DataAccess.Data;
 using TrackFinances.DataAccess.DbAccess;
 
 var builder = WebApplication.CreateBuilder(args);
-
+Console.WriteLine(builder.Configuration.GetValue<string>("Authentication:SecretKey"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -17,7 +17,7 @@ builder.Services
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                                     .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+                                     .GetBytes(builder.Configuration.GetValue<string>("Authentication:SecretKey"))),
             ValidateIssuer = false,
             ValidateAudience = false
         };
